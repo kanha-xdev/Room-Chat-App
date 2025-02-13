@@ -207,10 +207,17 @@ function ChatMessage({ handleSendChat, setChatInput, messages, roomId, clientId,
     };
   }, []);
 
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to the bottom smoothly whenever messages update.
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   
 
   return <>
-    <div className="h-3/4 w-1/2 flex flex-col gap-2">
+    <div className="h-3/4 w-[900px] flex flex-col gap-2 p-2">
       <div className="bg-slate-800 p-4 rounded-xl w-full flex justify-between items-center shadow-sm shadow-slate-400">
         <h1 className="text-2xl flex gap-3 items-center">
           @{roomId} <Copy
@@ -220,9 +227,12 @@ function ChatMessage({ handleSendChat, setChatInput, messages, roomId, clientId,
         <button
           className="flex gap-2 bg-black px-4 py-2 rounded-lg hover:bg-slate-700 hover:text-black transition-colors duration-300"
           onClick={() => { setJoined(false) }}
-        ><LogOut />Exit</button>
+        ><LogOut /><p className="sm:block hidden">Exit</p></button>
       </div>
-      <div className="bg-slate-800 w-full h-[80%] flex flex-col gap-2 rounded-xl p-4 shadow-sm shadow-slate-400 overflow-x-auto no-scrollbar">
+      <div 
+      className="bg-slate-800 w-full h-[80%] flex flex-col gap-2 rounded-xl p-4 shadow-sm shadow-slate-400 overflow-x-auto no-scrollbar"
+      ref={endOfMessagesRef} 
+      >
         {messages.map((msg: any, index: any) => {
           return <ChatBubble
             message={msg.message}
@@ -232,9 +242,9 @@ function ChatMessage({ handleSendChat, setChatInput, messages, roomId, clientId,
             clientId={clientId}
           />
         })}
-      </div>
+      </div >
       <form
-        className="bg-slate-800 w-full h-[10%] rounded-xl p-2 flex gap-2 shadow-sm shadow-slate-400"
+        className="bg-slate-800 w-full rounded-xl p-2 flex gap-2 shadow-sm shadow-slate-400"
         onSubmit={handleSendChat}
       >
         <input
@@ -246,9 +256,9 @@ function ChatMessage({ handleSendChat, setChatInput, messages, roomId, clientId,
           onChange={(e) => setChatInput(e.target.value)}
         ></input>
         <button
-          className="flex justify-center items-center gap-2 text-xl bg-black w-1/6 rounded-lg hover:bg-slate-700 hover:text-black transition-colors duration-300"
+          className="flex justify-center items-center gap-2 p-2 sm:text-xl bg-black w-1/6 rounded-lg hover:bg-slate-700 hover:text-black transition-colors duration-300"
           type="submit"
-        >Send <SendHorizonal /></button>
+        ><p className="sm:block hidden">Send</p> <SendHorizonal /></button>
       </form>
     </div>
   </>
@@ -256,23 +266,23 @@ function ChatMessage({ handleSendChat, setChatInput, messages, roomId, clientId,
 
 function Conncetion({ handleCreateRoom, handleJoinRoom, setJoinRoomInput, joinRoomInput }: any) {
   return <>
-    <div className="w-1/3 flex flex-col gap-4 ">
+    <div className=" flex flex-col gap-4 p-2">
       <div className="text-4xl font-script bg-slate-800 p-4 rounded-xl text-center shadow-sm shadow-slate-400">
         ROOM-CHAT
       </div>
       <form
-        className="bg-slate-800 p-4 rounded-xl flex gap-4 shadow-sm shadow-slate-400"
+        className="bg-slate-800 p-4 rounded-xl flex flex-col sm:flex-row gap-4 shadow-sm shadow-slate-400"
         onSubmit={handleJoinRoom}
       >
         <input
           type="text"
           value={joinRoomInput}
-          className="rounded-lg h-full w-5/6 outline outline-1 outline-black bg-inherit p-2 text-lg transition-all duration-100"
+          className="rounded-lg h-full sm:w-5/6 w-full outline outline-1 outline-black bg-inherit p-2 text-lg transition-all duration-100"
           placeholder="Enter Room ID to join"
           onChange={(e) => setJoinRoomInput(e.target.value)}
         ></input>
         <button
-          className="flex justify-center items-center gap-2 bg-black w-1/6 rounded-lg hover:bg-slate-700 hover:text-black transition-colors duration-300"
+          className="flex justify-center items-center gap-2 p-2 bg-black sm:w-1/6 w-full rounded-lg hover:bg-slate-700 hover:text-black transition-colors duration-300"
           type="submit"
         >Join <LogIn /></button>
       </form>
@@ -282,7 +292,7 @@ function Conncetion({ handleCreateRoom, handleJoinRoom, setJoinRoomInput, joinRo
           onClick={handleCreateRoom}
         >Create Room <CirclePlus /></button>
       </div>
-      <div className="bg-slate-800 p-4 flex gap-2 justify-center items-center rounded-xl shadow-sm shadow-slate-400">
+      <div className="bg-slate-800 p-4 flex gap-2 sm:flex-row flex-col justify-center items-center rounded-xl text-slate-400 shadow-sm shadow-slate-400">
         Created by <a href="https://github.com/Basharkhan7776" className="text-slate-300 font-bold text-xl hover:text-slate-600">@_Bashar_Khan_</a>
       </div>
     </div>
