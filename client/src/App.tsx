@@ -49,7 +49,7 @@ export default function App() {
   // When the user has joined, create and open the WebSocket connection.
   useEffect(() => {
     if (joined) {
-      const socket = new WebSocket("ws://localhost:8081");
+      const socket = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
       socket.onopen = () => {
         console.log("WebSocket connected");
         // Send the join message in your backend's expected format.
@@ -148,7 +148,7 @@ export default function App() {
     setChatInput("");
   };
 
-
+  console.log(error)
 
 
   return <div className="flex justify-center items-center h-screen w-full text-white font-poppins">

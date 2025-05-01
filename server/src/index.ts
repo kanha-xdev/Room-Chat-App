@@ -1,13 +1,16 @@
 import { WebSocketServer, WebSocket } from "ws";
+import dotenv from "dotenv";
+dotenv.config();
 
-const wss = new WebSocketServer({ port: 8081 });
+const wss = new WebSocketServer({ port: Number(process.env.SERVER_PORT) || 8081 });
+console.log("Server started on port " + (process.env.SERVER_PORT || 8081));
 
 interface Users {
     socket: WebSocket;
     room: string;
 }
 
-let allSockets: Users[] = [];//use Maps for better performance
+let allSockets: Users[] = [];
 
 wss.on("connection", (socket) => {
 
