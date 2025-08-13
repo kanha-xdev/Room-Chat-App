@@ -293,7 +293,7 @@ function Conncetion({ handleCreateRoom, handleJoinRoom, setJoinRoomInput, joinRo
         >Create Room <CirclePlus /></button>
       </div>
       <div className="bg-slate-800 p-4 flex gap-2 sm:flex-row flex-col justify-center items-center rounded-xl text-slate-400 shadow-sm shadow-slate-400">
-        Created by <a href="https://github.com/Basharkhan7776" className="text-slate-300 font-bold text-xl hover:text-slate-600">@_Bashar_Khan_</a>
+        Created by <a href="https://github.com/kanha-xdev" className="text-slate-300 font-bold text-xl hover:text-slate-600">@kanha_agr</a>
       </div>
     </div>
   </>
